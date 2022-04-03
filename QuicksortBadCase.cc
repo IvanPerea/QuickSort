@@ -22,7 +22,7 @@ void quickSort(int arr[], int l, int h)
     }
     }
 
-    int findMedian(int arr[], int n)
+    int Media(int arr[], int n)
 {
     sort(arr, arr+n);
     return arr[n/2]; 
@@ -37,17 +37,17 @@ int Smallest(int arr[], int l, int r, int k)
         int n = r-l+1;
         int i, median[(n+4)/5];
         for (i=0; i<n/5; i++)
-            median[i] = findMedian(arr+l+i*5, 5);
+            median[i] = Media(arr+l+i*5, 5);
         if (i*5 < n)
         {
-            median[i] = findMedian(arr+l+i*5, n%5);
+            median[i] = Media(arr+l+i*5, n%5);
             i++;
         }
 
-        int medOfMed = (i == 1)? median[i-1]:
+        int Med = (i == 1)? median[i-1]:
                                  Smallest(median, 0, i-1, i/2);
 
-        int pos = particionamiento(arr, l, r, medOfMed);
+        int pos = particionamiento(arr, l, r, Med);
 
         if (pos-l == k-1)
             return arr[pos];
@@ -60,7 +60,7 @@ int Smallest(int arr[], int l, int r, int k)
     return INT_MAX;
 }
  
-void swap(int *a, int *b)
+void inter(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
@@ -74,23 +74,23 @@ int particionamiento(int arr[], int l, int r, int x)
     for (i=l; i<r; i++)
         if (arr[i] == x)
            break;
-    swap(&arr[i], &arr[r]);
+    inter(&arr[i], &arr[r]);
  
     i = l;
     for (int j = l; j <= r - 1; j++)
     {
         if (arr[j] <= x)
         {
-            swap(&arr[i], &arr[j]);
+            inter(&arr[i], &arr[j]);
             i++;
         }
     }
-    swap(&arr[i], &arr[r]);
+    inter(&arr[i], &arr[r]);
     return i;
 }
  
 
-void printArray(int arr[], int size)
+void Array(int arr[], int size)
 {
     int i;
     for (i=0; i < size; i++)
@@ -105,7 +105,7 @@ int main()
     int n = sizeof(arr)/sizeof(arr[0]);
     quickSort(arr, 0, n-1);
     cout << "La matriz es\n";
-    printArray(arr, n);
+    Array(arr, n);
     return 0;
 }
 
