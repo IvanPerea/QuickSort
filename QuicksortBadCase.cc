@@ -6,7 +6,7 @@
 using namespace std;
 
 int particionamiento(int arr[], int l, int r, int k);
-int kthSmallest(int arr[], int l, int r, int k);
+int Smallest(int arr[], int l, int r, int k);
 
 void quickSort(int arr[], int l, int h)
 {
@@ -14,7 +14,7 @@ void quickSort(int arr[], int l, int h)
     {
 
         int n = h-l+1;
-        int med = kthSmallest(arr, l, h, n/2);
+        int med = Smallest(arr, l, h, n/2);
         int p = particionamiento(arr, l, h, med);
 
         quickSort(arr, l, p - 1);
@@ -29,7 +29,7 @@ void quickSort(int arr[], int l, int h)
 }
  
 
-int kthSmallest(int arr[], int l, int r, int k)
+int Smallest(int arr[], int l, int r, int k)
 {
 
     if (k > 0 && k <= r - l + 1)
@@ -45,16 +45,16 @@ int kthSmallest(int arr[], int l, int r, int k)
         }
 
         int medOfMed = (i == 1)? median[i-1]:
-                                 kthSmallest(median, 0, i-1, i/2);
+                                 Smallest(median, 0, i-1, i/2);
 
         int pos = particionamiento(arr, l, r, medOfMed);
 
         if (pos-l == k-1)
             return arr[pos];
         if (pos-l > k-1) 
-            return kthSmallest(arr, l, pos-1, k);
+            return Smallest(arr, l, pos-1, k);
  
-        return kthSmallest(arr, pos+1, r, k-pos+l-1);
+        return Smallest(arr, pos+1, r, k-pos+l-1);
     }
 
     return INT_MAX;
@@ -104,7 +104,7 @@ int main()
     int arr[] = {1000, 10, 7, 8, 9, 30, 900, 1, 5, 6, 20};
     int n = sizeof(arr)/sizeof(arr[0]);
     quickSort(arr, 0, n-1);
-    cout << "Sorted array is\n";
+    cout << "La matriz es\n";
     printArray(arr, n);
     return 0;
 }
